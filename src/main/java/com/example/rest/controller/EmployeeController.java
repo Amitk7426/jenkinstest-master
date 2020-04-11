@@ -16,45 +16,35 @@ import com.example.rest.dao.EmployeeDAO;
 import com.example.rest.model.Employee;
 import com.example.rest.model.Employees;
 
-
 @RestController
 @RequestMapping(path = "/employees")
-public class EmployeeController 
-{
-    @Autowired
-    private EmployeeDAO employeeDao;
-    
-    @GetMapping(path="/", produces = "application/json")
-    public Employees getEmployees
-    (
-        @RequestHeader(name = "X-COM-PERSIST", required = true) String headerPersist,
-        @RequestHeader(name = "X-COM-LOCATION", defaultValue = "ASIA") String headerLocation
-    ) 
-    {
-        return employeeDao.getAllEmployees();
-    }
-    
-    @PostMapping(path= "/", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Object> addEmployee(
-        @RequestHeader(name = "X-COM-PERSIST", required = true) String headerPersist,
-        @RequestHeader(name = "X-COM-LOCATION", defaultValue = "ASIA") String headerLocation,
-        @RequestBody Employee employee) 
-            throws Exception 
-    {       
-        //Generate resource id
-        Integer id = employeeDao.getAllEmployees().getEmployeeList().size() + 1;
-        employee.setId(id);
-        
-        //add resource
-        employeeDao.addEmployee(employee);
-        
-        //Create resource location
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                                    .path("/{id}")
-                                    .buildAndExpand(employee.getId())
-                                    .toUri();
-        
-        //Send location in response
-        return ResponseEntity.created(location).build();
-    }
+public class EmployeeController {
+	@Autowired
+	private EmployeeDAO employeeDao;
+
+	@GetMapping(path = "/", produces = "application/json")
+	public Employees getEmployees(@RequestHeader(name = "X-COM-PERSIST", required = true) String headerPersist,
+			@RequestHeader(name = "X-COM-LOCATION", defaultValue = "ASIA") String headerLocation) {
+		return employeeDao.getAllEmployees();
+	}
+
+	@PostMapping(path = "/", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<Object> addEmployee(
+			@RequestHeader(name = "X-COM-PERSIST", required = true) String headerPersist,
+			@RequestHeader(name = "X-COM-LOCATION", defaultValue = "ASIA") String headerLocation,
+			@RequestBody Employee employee) throws Exception {
+		// Generate resource id
+		Integer id = employeeDao.getAllEmployees().getEmployeeList().size() + 1;
+		employee.setId(id);
+
+		// add resource
+		employeeDao.addEmployee(employee);
+
+		// Create resource location
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(employee.getId())
+				.toUri();
+
+		// Send location in response
+		return ResponseEntity.created(location).build();
+	}
 }
