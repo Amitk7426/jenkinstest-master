@@ -31,16 +31,19 @@ pipeline {
 			    withSonarQubeEnv('SonarQube Server') {
 			    	bat 'C:/Users/Priya/Downloads/sonar-scanner-cli-4.2.0.1873-windows/sonar-scanner-4.2.0.1873-windows/bin/sonar-scanner'
 			    }
+			    script {
+						echo "test3"
+						def qg = waitForQualityGate()
+						echo "test4"
+						if (qg.status != 'OK') {
+							//error "Pipeline aborted due to quality gate failure: ${qg.status}"
+							echo "test4"
+					    }
+				    }
+			    }
             }
         }
-        stage("Quality Gate"){
-    		//timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
-    		def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
-    		if (qg.status != 'OK') {
-        		error "Pipeline aborted due to quality gate failure: ${qg.status}"
-    		}
-  		//}
-		}
+
         stage('Package') {
             steps {
                 echo 'Packaging'
