@@ -1,6 +1,0 @@
-projectKey=JENKINSBOOT
-serverUrl=http://localhost:9000
-serverVersion=8.2.0.32929
-dashboardUrl=http://localhost:9000/dashboard?id=JENKINSBOOT
-ceTaskId=AXFzkSC0f19NlcViBPLf
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AXFzkSC0f19NlcViBPLf
