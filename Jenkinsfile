@@ -39,7 +39,6 @@ pipeline {
 							//error "Pipeline aborted due to quality gate failure: ${qg.status}"
 							echo "test4"
 					    }
-				    }
 			    }
             }
         }
