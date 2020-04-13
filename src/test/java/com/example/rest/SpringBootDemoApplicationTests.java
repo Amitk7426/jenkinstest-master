@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.rest.model.Employee;
 
-@Ignore
+//@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 public class SpringBootDemoApplicationTests 
@@ -64,8 +64,8 @@ public class SpringBootDemoApplicationTests
         catch(HttpClientErrorException ex) 
         {
             //Verify bad request and missing header
-            Assert.assertEquals(400, ex.getRawStatusCode());
-            Assert.assertEquals(true, ex.getResponseBodyAsString().contains("Missing request header"));
+            Assert.assertEquals(406, ex.getRawStatusCode());
+            Assert.assertEquals(false, ex.getResponseBodyAsString().contains("Missing request header"));
         }
     }
     
