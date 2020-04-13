@@ -31,15 +31,7 @@ pipeline {
 			    withSonarQubeEnv('SonarQube Server') {
 			    	bat 'C:/Users/Priya/Downloads/sonar-scanner-cli-4.2.0.1873-windows/sonar-scanner-4.2.0.1873-windows/bin/sonar-scanner'
 			    }
-			    script {
-						echo "test3"
-						def qg = waitForQualityGate()
-						echo "test4"
-						if (qg.status != 'OK') {
-							//error "Pipeline aborted due to quality gate failure: ${qg.status}"
-							echo "test4"
-					    }
-			    }
+			    
             }
         }
 
